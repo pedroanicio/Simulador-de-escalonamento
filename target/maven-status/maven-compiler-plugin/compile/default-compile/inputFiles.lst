@@ -1,2 +1,6 @@
-/home/pedro/NetBeansProjects/trabalhoSO1/src/main/java/com/mycompany/trabalhoso1/RoundRobin.java
+/home/pedro/NetBeansProjects/trabalhoSO1/src/main/java/com/mycompany/trabalhoso1/MainMenu.java
+/home/pedro/NetBeansProjects/trabalhoSO1/src/main/java/com/mycompany/trabalhoso1/EscalonamentoPorPrioridadeCooperativo.java
+/home/pedro/NetBeansProjects/trabalhoSO1/src/main/java/com/mycompany/trabalhoso1/roundRobinChart.java
+/home/pedro/NetBeansProjects/trabalhoSO1/src/main/java/com/mycompany/trabalhoso1/ShortestRemainingTimeFirst.java
 /home/pedro/NetBeansProjects/trabalhoSO1/src/main/java/com/mycompany/trabalhoso1/ShortestJobFirst.java
+/home/pedro/NetBeansProjects/trabalhoSO1/src/main/java/com/mycompany/trabalhoso1/JFreeChart.java

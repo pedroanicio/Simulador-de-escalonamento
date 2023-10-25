@@ -10,8 +10,7 @@ import java.util.Date;
 
 
 import java.util.PriorityQueue;
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
 
 
 import org.jfree.data.gantt.Task;
@@ -24,10 +23,11 @@ import org.jfree.ui.RefineryUtilities;
  */
 public class ShortestJobFirst {
 
-    private static JFreeChartGantt chart;
+    private static JFreeChart chart;
+    public static int numProcessos;
 
     public static void main(String[] args) {
-        int numProcessos, tempo;
+        int tempo;
         String nome;
 
         //fila de prioridade para organizar os processos em ordem com base na sua duração.
@@ -51,14 +51,16 @@ public class ShortestJobFirst {
     }
 
     static void runShortestJobFirst(PriorityQueue<Process> queue, int trocasContexto) {
-
-        JFreeChartGantt chart = new JFreeChartGantt("Gráfico de Gantt");
+        JFreeChart chart = new JFreeChart("Gráfico de Gantt");
         chart.pack();
         RefineryUtilities.centerFrameOnScreen(chart);
         chart.setVisible(true);
 
         int currentTime = 0;
         TaskSeries processSeries = chart.getProcessSeries();
+
+        double tempoTotalExecucao = 0.0;
+        double tempoTotalEspera = 0.0;
 
         while (!queue.isEmpty()) {
             Process currentProcess = queue.poll();
@@ -87,10 +89,22 @@ public class ShortestJobFirst {
             );
             task.setPercentComplete(0);
             processSeries.add(task);
+
+            double tempoExecucao = currentProcess.getTempo();
+            double tempoEspera = currentTime - tempoExecucao;
+            tempoTotalExecucao += tempoExecucao;
+            tempoTotalEspera += tempoEspera;
         }
 
         JOptionPane.showMessageDialog(null, "Trocas de contexto: " + trocasContexto);
         System.out.println("Trocas de contexto: " + trocasContexto);
+
+        System.out.println("-------------------------");
+
+        double tempoMedioExecucao = tempoTotalExecucao / numProcessos;
+        double tempoMedioEspera = tempoTotalEspera / numProcessos;
+        System.out.println("Tempo Médio de Execução: " + tempoMedioExecucao);
+        System.out.println("Tempo Médio de Espera: " + tempoMedioEspera);
 
 
         if (!chart.isEnabled()) {

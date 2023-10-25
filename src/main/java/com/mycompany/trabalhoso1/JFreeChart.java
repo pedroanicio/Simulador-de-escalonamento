@@ -2,7 +2,6 @@ package com.mycompany.trabalhoso1;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.IntervalCategoryDataset;
@@ -11,15 +10,15 @@ import org.jfree.data.gantt.TaskSeriesCollection;
 
 import javax.swing.*;
 
-public class JFreeChartGantt extends JFrame {
+public class JFreeChart extends JFrame {
     private TaskSeries processSeries;
 
     //Aqui implementamos o gráfico, como suas dimensões
-    public JFreeChartGantt(String applicationTitle) {
+    public JFreeChart(String applicationTitle) {
         super(applicationTitle);
 
         IntervalCategoryDataset dataset = createDataset();
-        JFreeChart chart = createChart(dataset);
+        org.jfree.chart.JFreeChart chart = createChart(dataset);
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(800, 400));
@@ -38,8 +37,8 @@ public class JFreeChartGantt extends JFrame {
     }
 
     //Aqui definimos a estrutura do gráfico, como título, processos, tempo
-    private JFreeChart createChart(IntervalCategoryDataset dataset) {
-        JFreeChart chart = ChartFactory.createGanttChart(
+    private org.jfree.chart.JFreeChart createChart(IntervalCategoryDataset dataset) {
+        org.jfree.chart.JFreeChart chart = ChartFactory.createGanttChart(
                 "Gráfico de Gantt",
                 "Processos",
                 "Tempo",

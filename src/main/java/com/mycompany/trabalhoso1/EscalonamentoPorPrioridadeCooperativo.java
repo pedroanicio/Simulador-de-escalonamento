@@ -34,16 +34,19 @@ public class EscalonamentoPorPrioridadeCooperativo {
     }
 
     static class Process implements Comparable<Process> {
-        private String nome;
-        private int tempo;
-        private int prioridade;
+        // Aqui temos uma classe que representa um processo com nome, tempo de execução e prioridade.
+        // Aqui temos os atributos da classe Process
+        private String nome; // Nome do processo
+        private int tempo; // Tempo de execução do processo
+        private int prioridade; // Prioridade do processo
 
+        // Aqui temos o construtor da classe Process
         public Process(String nome, int tempo, int prioridade) {
             this.nome = nome;
             this.tempo = tempo;
             this.prioridade = prioridade;
         }
-
+        // Aqui temos os getters da classe Process
         public String getNome() {
             return nome;
         }
@@ -56,29 +59,45 @@ public class EscalonamentoPorPrioridadeCooperativo {
             return prioridade;
         }
 
+        // Aqui temos o método compareTo que é utilizado para comparar dois processos
         @Override
         public int compareTo(Process other) {
+
+            // Aqui ele compara dois processos com base em suas prioridades.
+            // Vai retornar um valor negativo se this é prioridade mais baixa que other.
+            // Vai retornar zero se this e other têm a mesma prioridade.
+            // Vai retornar um valor positivo se this é prioridade mais alta que other.
+
             return Integer.compare(this.prioridade, other.prioridade);
         }
     }
 
     static void runEscalonamentoPorPrioridadeCooperativo(PriorityQueue<Process> queue) {
-        int tempoTotal = 0;
-        int tempoEsperaTotal = 0;
-        int trocasContexto = 0;
+        // Esta função realiza o escalonamento cooperativo dos processos com base em prioridades.
+        // Ela recebe uma fila de prioridade 'queue' contendo objetos 'Process' a serem escalonados.
 
-        JFreeChartGantt chart = new JFreeChartGantt("Gantt Chart");
+        // Variáveis para rastreamento de estatísticas
+        int tempoTotal = 0;             // Aqui é feito o rastreio do tempo total de execução
+        int tempoEsperaTotal = 0;       // Aqui é feito o rastreio do tempo total de espera
+        int trocasContexto = 0;         // Aqui é feito o rastreio do número de trocas de contexto
+
+        // Aqui é criado o gráfico de Gantt
+        JFreeChart chart = new JFreeChart("Gantt Chart");
         chart.pack();
+        chart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         RefineryUtilities.centerFrameOnScreen(chart);
         chart.setVisible(true);
 
+        // Aqui é criada a série de processos para o gráfico de Gantt
         TaskSeries processSeries = chart.getProcessSeries();
 
-        Process processoAnterior = null;
+        // Aqui temos variáveis de controle de tempo
+        Process processoAnterior = null; // Aqui é feito o rastreio do processo anterior
+        int currentTime = 0;            // Aqui é feito o rastreio do tempo atual
 
-        int currentTime = 0;
-
+        // Aqui é iniciado o loop principal de escalonamento
         while (!queue.isEmpty()) {
+            // Aqui é obtido o próximo processo a ser executado a partir da fila de prioridade
             Process currentProcess = queue.poll();
 
             JOptionPane.showMessageDialog(null, "Escalonando " + currentProcess.getNome() + " (Tempo: " + currentProcess.getTempo() + ")");
@@ -118,7 +137,7 @@ public class EscalonamentoPorPrioridadeCooperativo {
         System.out.println("Resultados da simulação:");
         System.out.println("Tempo médio de execução: " + (trocasContexto > 0 ? (double) tempoTotal / trocasContexto : 0));
         System.out.println("Tempo médio de espera: " + (trocasContexto > 0 ? (double) tempoEsperaTotal / trocasContexto : 0));
-        System.out.println("Trocas de conceito efetuadas: " + trocasContexto);
+        System.out.println("Trocas de contexto efetuadas: " + trocasContexto);
 
         // Aqui exibimos o número de trocas de contexto em um JOptionPane
         JOptionPane.showMessageDialog(null, "Trocas de contexto efetuadas: " + trocasContexto);
